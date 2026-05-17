@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retrofly — Better retros, fewer meetings</title>
+    <meta name="description" content="Async retrospective workspace for collecting feedback, finding themes, and tracking action items." />
+    <meta name="author" content="Retrofly" />
+    <meta name="keywords" content="retrospective, retro, agile, scrum, team feedback, action items, async retro, sprint retrospective" />
+    <meta name="robots" content="index,follow" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)" />
+
+    <link rel="canonical" href="https://retrofly.app/" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+
+    <!--
+      Anti-FOUC theme bootstrap. Runs synchronously before paint so users with a
+      stored preference (or prefers-color-scheme: dark) don't see a light flash
+      on initial load. Must read the same storage key as <ThemeProvider /> in
+      src/components/theme-provider.tsx (next-themes default: "theme").
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = null;
+          try { stored = localStorage.getItem("theme"); } catch (_) {}
+          var prefersDark =
+            typeof window.matchMedia === "function" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var resolved =
+            stored === "dark" || stored === "light"
+              ? stored
+              : prefersDark
+              ? "dark"
+              : "light";
+          var root = document.documentElement;
+          if (resolved === "dark") root.classList.add("dark");
+          else root.classList.remove("dark");
+          root.style.colorScheme = resolved;
+        } catch (_) {
+          // Fail open to the default light theme; the React provider will
+          // reconcile after mount.
+        }
+      })();
+    </script>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Retrofly" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://retrofly.app/" />
+    <meta property="og:title" content="Retrofly — Better retros, fewer meetings" />
+    <meta property="og:description" content="Async retrospective workspace for collecting feedback, finding themes, and tracking action items." />
+    <meta property="og:image" content="https://retrofly.app/images/retrofly-social-card.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:alt" content="Retrofly — async retrospective workspace" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@retrofly" />
+    <meta name="twitter:title" content="Retrofly — Better retros, fewer meetings" />
+    <meta name="twitter:description" content="Async retrospective workspace for collecting feedback, finding themes, and tracking action items." />
+    <meta name="twitter:image" content="https://retrofly.app/images/retrofly-social-card.svg" />
+    <meta name="twitter:image:alt" content="Retrofly — async retrospective workspace" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Retrofly",
+        "description": "Async retrospective workspace for collecting feedback, finding themes, and tracking action items.",
+        "url": "https://retrofly.app/",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "Retrofly",
+          "url": "https://retrofly.app/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Retrofly",
+        "url": "https://retrofly.app/",
+        "description": "Async retrospective workspace for collecting feedback, finding themes, and tracking action items."
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="font-family: system-ui, sans-serif; padding: 2rem; text-align: center; color: #444;">
+        Retrofly needs JavaScript to run. Please enable it to continue.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
